@@ -1,9 +1,10 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0'
+        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.novoda:bintray-release:0.3.4'
     }
 }
 
@@ -12,31 +13,19 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 repositories {
-    mavenCentral()
-}
-
-dependencies {
+    jcenter()
 }
 
 android {
-    publishNonDefault true
-
-    compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
 
     defaultConfig {
         versionCode 2
         versionName "1.0.1"
         minSdkVersion 9
-        targetSdkVersion 21
+        targetSdkVersion 25
     }
-}
-
-signing {
-    required {
-        project.properties.containsKey("signing.keyId") && project.properties.containsKey("signing.secretKeyRingFile")
-    }
-    sign configurations.archives
 }
 
 version android.defaultConfig.versionName
