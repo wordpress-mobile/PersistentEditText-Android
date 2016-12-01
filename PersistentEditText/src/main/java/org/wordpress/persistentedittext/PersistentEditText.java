@@ -37,7 +37,9 @@ public class PersistentEditText extends EditText {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        load();
+        if (!isInEditMode()) {
+            load();
+        }
     }
 
     @Override protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
