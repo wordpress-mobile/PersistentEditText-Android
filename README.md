@@ -34,10 +34,21 @@ Sample usage:
 
 ### Build
 
+* Setup
+
 Create your `local.properties` file or copy it from another project, then you can generate the aar file:
 
 	$ echo "sdk.dir=YOUR_SDK_DIR" > local.properties
+
+* Build
+
     $ ./gradlew build
+
+* Publish to bintray:
+
+```
+$ ./gradlew assemble publishToMavenLocal bintrayUpload -PbintrayUser=XXX -PbintrayKey=XXX -PdryRun=false
+```
 
 ## Apps that use this library
 
