@@ -10,7 +10,7 @@ buildscript {
 
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
-apply plugin: 'signing'
+apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library)
 
 repositories {
     jcenter()
@@ -28,51 +28,15 @@ android {
     }
 }
 
-version android.defaultConfig.versionName
-group = "org.wordpress"
-archivesBaseName = "persistentedittext"
-
-// http://central.sonatype.org/pages/gradle.html
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: project.properties.ossrhUsername, password: project.properties.ossrhPassword)
-            }
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: project.properties.ossrhUsername, password: project.properties.ossrhPassword)
-            }
-
-            pom.project {
-                name 'PersistentEditText'
-                packaging 'aar'
-                description 'Android EditText subclass with persistence'
-                url 'https://github.com/wordpress-mobile/PersistentEditText'
-                scm {
-                    connection 'scm:git:https://github.com/wordpress-mobile/PersistentEditText.git'
-                    developerConnection 'scm:git:https://github.com/wordpress-mobile/PersistentEditText.git'
-                    url 'https://github.com/wordpress-mobile/PersistentEditText'
-                }
-
-                licenses {
-                    license {
-                        name 'The MIT License (MIT)'
-                        url 'http://opensource.org/licenses/MIT'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'maxme'
-                        name 'Maxime Biais'
-                        email 'maxime@automattic.com'
-                    }
-                }
-            }
-        }
-    }
+publish {
+    artifactId = 'persistentedittext'
+    userOrg = 'wordpress-mobile'
+    groupId = 'org.wordpress'
+    uploadName = 'persistentedittext'
+    description = 'Android EditText subclass with persistence'
+    publishVersion = android.defaultConfig.versionName
+    licences = ['MIT', 'GPL-2.0']
+    website = 'https://github.com/wordpress-mobile/PersistentEditText'
+    dryRun = 'false'
+    autoPublish = 'true'
 }
